@@ -16,74 +16,67 @@ namespace Number_guessing_game
 
 		public static void Main(string[] args)
 		{
-            ///THIS IS THE GAME
-			asktoplay();
-			string input = Console.ReadLine();
-            if (input.ToLower() == "y")
-            {
-				Thread.Sleep(100);
-				Console.WriteLine("Let's begin..");
-            }
+            //Calling needed parts
+			Random random = new Random();
+			int randomNumber = random.Next(1, 11);
+			int guess;
+			int numberOfGuesses = 0;
+			bool gameover = false;
 
-
+            //Game rules listed
+			Console.WriteLine("I'm thinking of a number between 1 and 10...");
 			Thread.Sleep(500);
+			Console.WriteLine("Type your guess");
 
-			startGame();
+            //main game loop
+			while (gameover == false)
+			{
+				guess = Convert.ToInt32(Console.ReadLine());
+				numberOfGuesses++;
 
-			gameLoop();
+				//User is correct or cheats
+				if (guess == randomNumber)
+				{
+					Thread.Sleep(500);
+					Console.WriteLine("That's right! The number was {0} And you got it in {1} tries!!", guess, numberOfGuesses);
+					gameover = true;
+				}
 
-            ///End of game section
+				else if (guess == 1337)
+                {
+                    Thread.Sleep(1000);
+                    Console.WriteLine("We got a LEET H4X3R HERE");
+                    Thread.Sleep(1500);
+                    Console.WriteLine("I GUESS YOU WIN OR WHATEVER");
+                    Thread.Sleep(2000);
+                    Console.WriteLine("Congrats...");
+					Thread.Sleep(2500);
+                    Console.WriteLine("...PRICK...");
+                    gameover = true;
+                }
+
+				//Guess is too High
+				else if (guess > randomNumber)
+				{
+					Thread.Sleep(500);
+					Console.WriteLine("That's too high. Give it another go.");
+				}
+
+                //Guess is too low
+				else if (guess < randomNumber)
+                {
+					Thread.Sleep(500);
+					Console.WriteLine("That's too low my dude. Try again.");
+                }
+
+
+			}
+
+			Console.WriteLine("G A M E  O V E R");
+			Console.ReadLine();
+
 		}
        
-
-
-        //Create a function list
-        
-        //Function 1, Ask to play a game
-		static void asktoplay()
-		{
-			Console.WriteLine("Hello there...");
-			Thread.Sleep(1000);
-			Console.WriteLine("Would you like to press a game? (Y/N)");
-
-		}
-
-		//Function 2, Introduce Game rules
-        static void startGame()
-		{
-			Console.WriteLine("I'm thinking of a number between 1 and 9...");
-			Thread.Sleep(1500);
-			Console.WriteLine("Take a guess. Type your answer.");
-
-		}
-
-        static void gameLoop()
-		{
-			Random Nummaker = new Random();
-            int rannum = Nummaker.Next(8) + 1;
-			int uguess = 0;
-			uguess = Convert.ToInt32(Console.ReadLine());
-			while (uguess != rannum)
-			{
-				if (uguess < rannum)
-				{
-					Console.WriteLine("That's a bit too low...Try again..");
-					return;
-				}
-
-                if (uguess > rannum)
-				{
-					Console.WriteLine("That's too high. Give it another go!");
-					return;
-				}
-
-				if (uguess == rannum)
-				{
-					Console.WriteLine("That's right! The number was {0} ", rannum);
-					return;
-				}
-			}
-		}
 	}
 
 }
